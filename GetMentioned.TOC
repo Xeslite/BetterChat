@@ -1,8 +1,9 @@
-## Interface: 70100
+## Interface: 73000
 ## Title: GetMentioned
 ## Version: 1
 ## Notes:
-## Author: The Air
+## Author: Xeslite
 ## DefaultState: Enabled
+## SavedVariables: Sheet
 Main.lua
-
+Sheet.lua
