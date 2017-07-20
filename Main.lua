@@ -5,19 +5,22 @@ local EventList = {"CHAT_MSG_SYSTEM", "CHAT_MSG_GUILD", "CHAT_MSG_OFFICER", "CHA
 
 Sheet = {};
 
-initilize = function(self, event, msg)
-	local msg = msg:lower();
-	
-	if msg:find(FindEmoji) then
-		GrabEmoji = msg:match(FindEmoji);
-		gsub(msg, FindEmoji, Sheet[GrabEmoji]);
+initilize = function(self, event, msg, ...)
+	if string.find(msg, FindEmoji) then
+		GrabEmoji = string.match(msg, FindEmoji);
+		GrabEmoji = GrabEmoji:lower();
+		msg = string.gsub(msg, FindEmoji, "InsertSmiley");--Sheet[GrabEmoji]);
+		return false, msg, ...
+	elseif string.find(msg, "@") and (event == "CHAT_MSG_GUILD" or event == "CHAT_MSG_OFFICER") and string.find(msg, "@"..UnitName("player")) then
+		msg = string.gsub(msg, msg, "\124cffe5ff00"..msg.."\124r")
+		return false, msg, ...
 	end
 end
 
 do
 	local first = true;
 	local k,v = nil, nil;
-	
+
 	for x=1,#EventList do
 		if first then
 			k,v = next(EventList);
